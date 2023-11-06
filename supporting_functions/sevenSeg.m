@@ -15,6 +15,50 @@ group1 = [gnds(1,2),gnds(1,3),gnds(1,4)];
 group2 = [gnds(1,1),gnds(1,3),gnds(1,4)];
 group3 = [gnds(1,1),gnds(1,2),gnds(1,4)];
 group4 = [gnds(1,1),gnds(1,2),gnds(1,3)];
+
+if height(ardy) ~= 1
+    error("Arduino input must only contain arduino name")
+elseif length(ardy) ~= 1
+    error("Arduino input must only contain arduino name")
+
+elseif isstring(segPins) ~= 1
+    error("Segment pin array must contain pin names")
+elseif height(segPins) ~= 1
+    error("Segment pin array must be one dimensional")
+elseif length(segPins) ~= 8
+    error("Segment pin array must contain seven pins")
+
+elseif isstring(gnds) ~= 1
+    error("Ground pin array must contain ground pin names")
+elseif height(gnds) ~= 1
+    error("Ground pin array must be one dimensional")
+elseif length(gnds) ~= 4
+    error("Gound pin array must contain four pins")
+
+elseif height(nums) ~= 1
+    error("Numbers array must be one dimensional")
+elseif length(nums) ~= 4
+    error("Numbers array must only contain four values")
+
+elseif height(decs) ~= 1
+    error("Decimals array must be one dimensional")
+elseif length(decs) ~= 4
+    error("Decimals array must only contain four values")
+end
+
+for dig = 1:4
+    if nums(1,dig) < 0 || nums(1,dig) > 9
+        error("Display numbers must be single digit")
+    elseif rem(nums(1,dig),1) ~= 0
+        error("Numbers to display must be whole numbers")
+    elseif decs(1,dig) < 0 || decs(1,dig) > 1
+        error("Decimals input must contain boolean values of zero or one")
+    elseif rem(decs(1,dig),1) ~= 0
+        error("Decimals input must contain boolean values of zero or one")
+    end
+end
+
+
 while 1
     writeDigitalPin(ardy,gnds(1,4),0);
     groupDigitalPinWrite(ardy,group1,1);
